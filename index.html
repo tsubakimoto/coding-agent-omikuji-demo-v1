@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おみくじアプリ</title>
+    <style>
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .omikuji-result {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 30px 0;
+            min-height: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+        }
+
+        .result-daikichi { color: #ff6b35; background: #fff5f2; border-color: #ff6b35; }
+        .result-chukichi { color: #ff8500; background: #fff8f0; border-color: #ff8500; }
+        .result-shokichi { color: #ffa500; background: #fffaf0; border-color: #ffa500; }
+        .result-kichi { color: #32cd32; background: #f0fff0; border-color: #32cd32; }
+        .result-kyo { color: #666; background: #f5f5f5; border-color: #666; }
+        .result-daikyo { color: #8b0000; background: #faf0f0; border-color: #8b0000; }
+
+        button {
+            background: linear-gradient(45deg, #ff6b35, #ff8500);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .description {
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .animate {
+            animation: bounce 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎋 おみくじ 🎋</h1>
+        <div id="result" class="omikuji-result">
+            おみくじを引いてみよう！
+        </div>
+        <button id="drawButton" onclick="drawOmikuji()">おみくじを回す</button>
+        <div class="description">
+            ボタンを押して今日の運勢を占ってみてください。<br>
+            大吉から大凶まで、あなたの運命が決まります！
+        </div>
+    </div>
+
+    <script>
+        const fortunes = [
+            { text: '大吉', class: 'result-daikichi', description: '最高の運勢です！何をやってもうまくいくでしょう。' },
+            { text: '中吉', class: 'result-chukichi', description: 'とても良い運勢です。積極的に行動しましょう。' },
+            { text: '小吉', class: 'result-shokichi', description: '良い運勢です。小さな幸せが訪れるでしょう。' },
+            { text: '吉', class: 'result-kichi', description: '普通の運勢です。安定した一日になりそうです。' },
+            { text: '凶', class: 'result-kyo', description: '少し注意が必要です。慎重に行動しましょう。' },
+            { text: '大凶', class: 'result-daikyo', description: '今日は控えめに過ごすのが良さそうです。' }
+        ];
+
+        function drawOmikuji() {
+            const button = document.getElementById('drawButton');
+            const resultDiv = document.getElementById('result');
+            
+            // ボタンを無効化
+            button.disabled = true;
+            button.textContent = '回転中...';
+            
+            // 結果をクリア
+            resultDiv.textContent = '...';
+            resultDiv.className = 'omikuji-result';
+            
+            // 1.5秒後に結果を表示
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * fortunes.length);
+                const selectedFortune = fortunes[randomIndex];
+                
+                resultDiv.textContent = selectedFortune.text;
+                resultDiv.className = `omikuji-result ${selectedFortune.class} animate`;
+                
+                // ボタンを有効化
+                button.disabled = false;
+                button.textContent = 'もう一度回す';
+                
+                // 結果の説明を更新
+                setTimeout(() => {
+                    const description = document.querySelector('.description');
+                    description.innerHTML = `
+                        <strong>${selectedFortune.text}</strong><br>
+                        ${selectedFortune.description}<br><br>
+                        <small>もう一度おみくじを引いてみますか？</small>
+                    `;
+                }, 500);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
