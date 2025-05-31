@@ -1,0 +1,148 @@
+/* リセットとベーススタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Hiragino Sans', 'ヒラギノ角ゴシック', 'Yu Gothic', 'Meiryo', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+header h1 {
+    color: #764ba2;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header p {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.omikuji-container {
+    margin: 30px 0;
+}
+
+.result-display {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 30px 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+}
+
+.result-display.show {
+    transform: scale(1);
+    animation: bounce 0.6s ease;
+}
+
+.result-display.hidden {
+    display: none;
+}
+
+.result-text {
+    font-size: 3em;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.draw-button {
+    background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 20px 40px;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    font-family: inherit;
+}
+
+.draw-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+.draw-button:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.draw-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.instructions {
+    margin-top: 20px;
+    color: #666;
+    font-size: 1em;
+}
+
+footer {
+    margin-top: 30px;
+    color: #999;
+    font-size: 0.9em;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+/* アニメーション */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    40% {
+        transform: translateY(-10px) scale(1.05);
+    }
+    60% {
+        transform: translateY(-5px) scale(1.02);
+    }
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .result-text {
+        font-size: 2.5em;
+    }
+    
+    .draw-button {
+        padding: 15px 30px;
+        font-size: 1.1em;
+    }
+}

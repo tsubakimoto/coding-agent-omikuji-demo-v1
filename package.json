@@ -1,0 +1,16 @@
+{
+  "name": "omikuji-demo",
+  "version": "1.0.0",
+  "description": "A web-based omikuji (Japanese fortune-telling) application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js"
+  },
+  "keywords": ["omikuji", "fortune", "japanese", "web-app", "express"],
+  "author": "Yuta Matsumura",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
